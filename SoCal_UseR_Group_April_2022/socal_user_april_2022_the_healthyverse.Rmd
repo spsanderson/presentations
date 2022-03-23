@@ -1,5 +1,6 @@
 ---
 title: "The {healthyverse}"
+subtitle: "A Presentation to the SoCal RUG"
 author: "Steven P Sanderson II, MPH"
 date: "`r Sys.Date()`"
 output: ioslides_presentation
@@ -12,6 +13,16 @@ knitr::opts_chunk$set(echo = FALSE)
 ## About Me
 
 Name - Steven P Sanderson II, MPH
+
+Education:
+
+- BA Economics: SUNY Stony Brook University
+- MPH: SUNY Stony Brook University
+
+Employment:
+
+- Data Scientist/IT Manager: NYU Langone Healthy at Long Island Community Hospital
+- Head Data Scientist: Manchu Technologies Corp. (Consulting in SQL, R)
 
 ## Slide with Bullets
 
