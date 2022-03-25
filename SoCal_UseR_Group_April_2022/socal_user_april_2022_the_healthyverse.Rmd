@@ -24,6 +24,29 @@ Employment:
 - Data Scientist/IT Manager: NYU Langone Healthy at Long Island Community Hospital
 - Head Data Scientist: Manchu Technologies Corp. (Consulting in SQL, R)
 
+## Sites
+
+GitHub: https://github.com/spsanderson
+
+LinkedIn: https://www.linkedin.com/in/spsanderson/
+
+Personal: https://www.spsanderson.com
+
+## Interests
+
+- Data Analysis
+- R (probably obvious)
+- Plex Server (Music is life) - Is 88K mp3's to much? NO!
+
+## How I got Started
+
+I got started with R in my first job out of undergrad.
+
+Employer: "Do you know SQL and any other analysis programming?"
+Me: Yes, not a problem at all.
+
+Reality...a little different, maybe an alternative fact.
+
 ## Slide with Bullets
 
 - Bullet 1
