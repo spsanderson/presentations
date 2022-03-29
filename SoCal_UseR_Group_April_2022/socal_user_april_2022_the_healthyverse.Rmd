@@ -3,7 +3,9 @@ title: "The {healthyverse}"
 subtitle: "A Presentation to the SoCal RUG"
 author: "Steven P Sanderson II, MPH"
 date: "`r Sys.Date()`"
-output: ioslides_presentation
+output: 
+    ioslides_presentation:
+        logo: healthyverse.png
 ---
 
 ```{r setup, include=FALSE}
@@ -22,11 +24,11 @@ Education:
 Employment:
 
 - Data Scientist/IT Manager: NYU Langone Healthy at Long Island Community Hospital
-- Head Data Scientist: Manchu Technologies Corp. (Consulting in SQL, R)
+- Head Data Scientist: Manchu Technologies Corp. (Consulting in `SQL`, `R`)
 
 Developer:
 
-- {healthyverse} packages.
+- `healthyverse` packages.
 
 ## Sites
 
@@ -57,20 +59,23 @@ SO...Google Searching...saved the day? YES!
 
 So what are we going to discuss today?
 
-The {healthyverse} suite of packages.
+The `healthyverse` suite of packages.
 
 ## Healthyverse Packages
 
-There are currently five packages in the {healthyverse}
+There are currently five packages in the `healthyverse`
 
 
 | Package | r-universe badge |
 |:-------:|:----------------:|
-| healthyR |  [![healthyR status badge](https://spsanderson.r-universe.dev/badges/healthyR)](https://spsanderson.r-universe.dev) |
-| healthyR.data |  [![healthyR.data status badge](https://spsanderson.r-universe.dev/badges/healthyR.data)](https://spsanderson.r-universe.dev) |
-| healthyR.ai | [![healthyR.ai status badge](https://spsanderson.r-universe.dev/badges/healthyR.ai)](https://spsanderson.r-universe.dev) |
-| healthyR.ts | [![healthyR.ts status badge](https://spsanderson.r-universe.dev/badges/healthyR.ts)](https://spsanderson.r-universe.dev) |
-| TidyDensity | [![TidyDensity status badge](https://spsanderson.r-universe.dev/badges/TidyDensity)](https://spsanderson.r-universe.dev) |
+| `healthyR` |  [![healthyR status badge](https://spsanderson.r-universe.dev/badges/healthyR)](https://spsanderson.r-universe.dev) |
+| `healthyR.data` |  [![healthyR.data status badge](https://spsanderson.r-universe.dev/badges/healthyR.data)](https://spsanderson.r-universe.dev) |
+| `healthyR.ai` | [![healthyR.ai status badge](https://spsanderson.r-universe.dev/badges/healthyR.ai)](https://spsanderson.r-universe.dev) |
+| `healthyR.ts` | [![healthyR.ts status badge](https://spsanderson.r-universe.dev/badges/healthyR.ts)](https://spsanderson.r-universe.dev) |
+| `TidyDensity` | [![TidyDensity status badge](https://spsanderson.r-universe.dev/badges/TidyDensity)](https://spsanderson.r-universe.dev) |
 
-The {healthyverse} package is really just a meta package like tidyverse.
+The `healthyverse` package is really just a meta package like tidyverse.
 
+## The begining
+
+First came `healthyR`
