@@ -24,6 +24,10 @@ Employment:
 - Data Scientist/IT Manager: NYU Langone Healthy at Long Island Community Hospital
 - Head Data Scientist: Manchu Technologies Corp. (Consulting in SQL, R)
 
+Developer:
+
+- {healthyverse} packages.
+
 ## Sites
 
 GitHub: https://github.com/spsanderson
@@ -49,21 +53,24 @@ Reality...a little different, maybe an alternative fact.
 
 SO...Google Searching...saved the day? YES!
 
-## Slide with Bullets
+## What are we going to talk about
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+So what are we going to discuss today?
 
-## Slide with R Output
+The {healthyverse} suite of packages.
 
-```{r cars, echo = TRUE}
-summary(cars)
-```
+## Healthyverse Packages
 
-## Slide with Plot
+There are currently five packages in the {healthyverse}
 
-```{r pressure}
-plot(pressure)
-```
+
+| Package | r-universe badge |
+|:-------:|:----------------:|
+| healthyR |  [![healthyR status badge](https://spsanderson.r-universe.dev/badges/healthyR)](https://spsanderson.r-universe.dev) |
+| healthyR.data |  [![healthyR.data status badge](https://spsanderson.r-universe.dev/badges/healthyR.data)](https://spsanderson.r-universe.dev) |
+| healthyR.ai | [![healthyR.ai status badge](https://spsanderson.r-universe.dev/badges/healthyR.ai)](https://spsanderson.r-universe.dev) |
+| healthyR.ts | [![healthyR.ts status badge](https://spsanderson.r-universe.dev/badges/healthyR.ts)](https://spsanderson.r-universe.dev) |
+| TidyDensity | [![TidyDensity status badge](https://spsanderson.r-universe.dev/badges/TidyDensity)](https://spsanderson.r-universe.dev) |
+
+The {healthyverse} package is really just a meta package like tidyverse.
 
