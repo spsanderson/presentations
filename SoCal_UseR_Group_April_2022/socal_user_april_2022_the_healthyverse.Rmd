@@ -10,6 +10,9 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(tidyquant)
+library(healthyverse)
 ```
 
 ## About Me
@@ -88,3 +91,102 @@ First came `healthyR`
 | Total Downloads | ![](https://cranlogs.r-pkg.org/badges/grand-total/healthyR) |
 | Lifecycle | [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html##experimental) |
 | Pull Requests | [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com) |
+
+## What is `healthyR`?
+
+Current Stats
+
+- Has some functionality that can be useful right out of the gate
+- Plotting functions like `los_ra_index_plt()`, `kmeans_scree_plt()`, and `gartner_magic_chart_plt()`
+
+## LOS RA Index Plot
+This plot takes place at the end of a work flow. Let's take a look at an example. First we need some data.
+
+```{r warning=FALSE, message=FALSE}
+set.seed(123)
+data_tbl <- tibble(
+  "alos"                 = rnorm(186, 6.5, 3)
+  , "elos"               = rnorm(186, 6, 3)
+  , "readmit_rate"       = rnorm(186, .1, .05)
+  , "readmit_rate_bench" = rnorm(186, .075, .05)
+)
+
+data_tbl
+```
+
+## LOS RA Index Plot (summary)
+Now that we have our data, let's take a look at the summary table.
+
+```{r warning=FALSE, message=FALSE}
+summary_tbl <- los_ra_index_summary_tbl(
+  .data = data_tbl
+  , .max_los       = 12
+  , .alos_col      = alos
+  , .elos_col      = elos
+  , .readmit_rate  = readmit_rate
+  , .readmit_bench = readmit_rate_bench
+)
+
+summary_tbl
+```
+
+## LOS RA Index Plot (plot)
+
+Now lets take a look at the resulting plot and discuss what it tells us.
+
+```{r warning=FALSE, message=FALSE}
+los_ra_index_plt(summary_tbl)
+```
+
+## K-Means
+
+What is it? In it's simplest form, K-Means will partition data into K non-overlapping clusters.
+
+Example? Think a bank wanting to give people credit cards, this is a clustering
+problem, high income, average income, low income, etc.
+
+It's easy to understand how many applications this has.
+
+Healthcare is no different.
+
+## Scree Plot
+
+We are only going to focus on the scree plot. This helps us to decide how many
+clusters are in our data.
+
+This plot is also many times referred to as the elbow plot.
+
+## Example
+
+```{r warning=FALSE, message=FALSE}
+data_tbl <- healthyR_data%>%
+   filter(ip_op_flag == "I") %>%
+   filter(payer_grouping != "Medicare B") %>%
+   filter(payer_grouping != "?") %>%
+   select(service_line, payer_grouping) %>%
+   mutate(record = 1) %>%
+   as_tibble()
+
+ui_tbl <-  kmeans_user_item_tbl(
+   .data           = data_tbl
+   , .row_input    = service_line
+   , .col_input    =  payer_grouping
+   , .record_input = record
+ )
+
+kmm_tbl <- kmeans_mapped_tbl(ui_tbl)
+
+kmeans_scree_plt(.data = kmm_tbl)
+```
+
+## What Just Happened?
+
+What just happened? Magic? Maybe?
+
+First the data. Using the `healthyR_data` from my package `healthyR.data` we get a tibble of records with a service line and a payer grouping.
+
+A patients service line is the row record and the payer grouping is the item, this gives us the user item matrix we need.
+
+Next we get a tibble with multiple centers via the function `kmeans_mapped_tbl()`
+
+Lastly, we plot that mapped tibble.
