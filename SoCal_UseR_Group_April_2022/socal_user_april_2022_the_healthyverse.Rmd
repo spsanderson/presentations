@@ -190,3 +190,51 @@ A patients service line is the row record and the payer grouping is the item, th
 Next we get a tibble with multiple centers via the function `kmeans_mapped_tbl()`
 
 Lastly, we plot that mapped tibble.
+
+## Magic Chart
+
+Have you seen the Gartner Magic Quadrant Chart?
+
+If so, then you know, if not, then I'll show.
+
+First let's take a look at the function call.
+
+## Function Call
+
+```{r, eval=FALSE, echo=TRUE}
+gartner_magic_chart_plt(
+  .data = tibble::tibble(
+      x = rnorm(100, 0, 1)
+      , y = rnorm(100,0,1)
+  )
+  , .x_col = x
+  , .y_col = y
+  , .x_lab = "LOS"
+  , .y_lab = "Readmit"
+  , .plt_title = "Test Plot"
+  , .tr_lbl = "High RA-LOS"
+  , .tl_lbl = "High RA"
+  , .bl_lbl = "Leader"
+  , .br_lbl = "High LOS"
+)
+```
+
+## Plot Output
+
+```{r}
+gartner_magic_chart_plt(
+  .data = tibble::tibble(
+      x = rnorm(100, 0, 1)
+      , y = rnorm(100,0,1)
+  )
+  , .x_col = x
+  , .y_col = y
+  , .x_lab = "LOS"
+  , .y_lab = "Readmit"
+  , .plt_title = "Test Plot"
+  , .tr_lbl = "High RA-LOS"
+  , .tl_lbl = "High RA"
+  , .bl_lbl = "Leader"
+  , .br_lbl = "High LOS"
+)
+```
