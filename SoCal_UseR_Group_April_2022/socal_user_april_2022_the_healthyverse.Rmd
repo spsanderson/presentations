@@ -92,7 +92,7 @@ First came `healthyR`
 | Lifecycle | [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html##experimental) |
 | Pull Requests | [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com) |
 
-## What is `healthyR`?
+## `healthyR`
 
 Current Stats
 
@@ -238,3 +238,41 @@ gartner_magic_chart_plt(
   , .br_lbl = "High LOS"
 )
 ```
+
+## `healthyR.ts`
+
+What is `healthyR.ts`
+
+[Site: www.spsanderson.com/healthyR.ts](www.spsanderson.com/healthyR.ts)
+
+The intent is that it be a easy to use verb framework for quick modeling of
+time-series data.
+
+In this section we are going to go over the processes of model tuning.
+
+## Time Series Data
+
+For this we use the internal `AirPassengers` dataset.
+
+```{r, echo=TRUE}
+data_ts <- AirPassengers
+
+head(data_ts)
+```
+
+## Transform to `tibble` 
+
+Most of the work done inside of `healthyR.ts` requires the use of a `tibble`, and where a `ts` object can be used, it is typically converted to a `tibble` internally to the function. This is done on purpose so that it works well with the rest of the `tidyverse`
+
+```{r echo=TRUE}
+data_tbl <- ts_to_tbl(data_ts) %>%
+  select(-index)
+
+head(data_tbl, 5)
+```
+
+## `healthyR.ai`
+
+## `healthyR.data`
+
+## `TidyDensity`
