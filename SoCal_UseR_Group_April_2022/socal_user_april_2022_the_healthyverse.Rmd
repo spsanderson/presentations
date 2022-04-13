@@ -12,6 +12,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(tidyquant)
+library(timetk)
 library(healthyverse)
 ```
 
@@ -269,6 +270,26 @@ data_tbl <- ts_to_tbl(data_ts) %>%
   select(-index)
 
 head(data_tbl, 5)
+```
+
+## `ts` to `tibble`
+
+With the function `ts_to_tbl()` we can take a time-series object and make it into a `tibble` object.
+
+## Splits Oject
+
+Now that we have our data, we need to make our time series split object. We use `timetk::time_series_split()`
+
+```{r, echo=TRUE}
+splits <- time_series_split(
+    data_tbl
+    , date_col
+    , assess = 12
+    , skip = 3
+    , cumulative = TRUE
+)
+
+splits
 ```
 
 ## `healthyR.ai`
