@@ -3513,6 +3513,27 @@ head(data_tbl, 5)</pre>
 ## 4 1949-04-01   129
 ## 5 1949-05-01   121</pre>
 
+</article></slide><slide class=""><hgroup><h2><code>ts</code> to <code>tibble</code></h2></hgroup><article  id="ts-to-tibble">
+
+<p>With the function <code>ts_to_tbl()</code> we can take a time-series object and make it into a <code>tibble</code> object.</p>
+
+</article></slide><slide class=""><hgroup><h2>Splits Oject</h2></hgroup><article  id="splits-oject">
+
+<p>Now that we have our data, we need to make our time series split object. We use <code>timetk::time_series_split()</code></p>
+
+<pre class = 'prettyprint lang-r'>splits &lt;- time_series_split(
+    data_tbl
+    , date_col
+    , assess = 12
+    , skip = 3
+    , cumulative = TRUE
+)
+
+splits</pre>
+
+<pre >## &lt;Analysis/Assess/Total&gt;
+## &lt;132/12/144&gt;</pre>
+
 </article></slide><slide class=""><hgroup><h2><code>healthyR.ai</code></h2></hgroup><article  id="healthyr.ai">
 
 </article></slide><slide class=""><hgroup><h2><code>healthyR.data</code></h2></hgroup><article  id="healthyr.data">
