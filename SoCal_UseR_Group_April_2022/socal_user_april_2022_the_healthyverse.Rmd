@@ -14,6 +14,8 @@ library(tidyverse)
 library(tidyquant)
 library(timetk)
 library(healthyverse)
+library(tidymodels)
+library(modeltime)
 ```
 
 ## About Me
@@ -128,7 +130,7 @@ summary_tbl <- los_ra_index_summary_tbl(
   , .readmit_bench = readmit_rate_bench
 )
 
-summary_tbl
+head(summary_tbl, 5)
 ```
 
 ## LOS RA Index Plot (plot)
@@ -253,7 +255,7 @@ In this section we are going to go over the processes of model tuning.
 
 ## Time Series Data
 
-For this we use the internal `AirPassengers` dataset.
+For this we use the internal `AirPassengers` data set.
 
 ```{r, echo=TRUE}
 data_ts <- AirPassengers
@@ -289,8 +291,94 @@ splits <- time_series_split(
     , cumulative = TRUE
 )
 
-splits
+head(training(splits), 1)
 ```
+
+## Recipe
+
+Now that we have our splits object we can go ahead and make the recipe. For this
+we will use `ts_auto_recipe()` which creates four different recipes and outputs them into a list object.
+
+```{r, echo=TRUE}
+rec_objs <- ts_auto_recipe(
+  .data       = data_tbl
+  , .date_col = date_col
+  , .pred_col = value
+)
+
+```
+
+## Recipe (con't)
+
+Lets take a look at it
+
+```{r, echo=TRUE}
+rec_objs[[1]]
+```
+
+We are not going to look at all of them.
+
+## Workflow Sets and `healthyR.ts`
+Now that we have our data and our recipe, we can make our automatic `workflowsets` object. As mentioned at the top we are going to use the MARS algorithm with the earth engine. This function from `healthyR.ts` will take in a list of recipes and a `.model_type parameter`, and create a `workflowsets` `tibble`, where `cross` is set to `TRUE`
+
+We use `ts_wfs_mars()` in this example.
+
+```{r eval=FALSE, echo=TRUE}
+ts_wfs_mars(
+  .model_type = "earth",
+  .recipe_list,
+  .num_terms = 200,
+  .prod_degree = 1,
+  .prune_method = "backward"
+)
+```
+
+## (con't)
+
+Lets make the workflowset objec.
+
+```{r echo=TRUE}
+wfsets <- healthyR.ts::ts_wfs_mars(
+  .model_type = "earth"
+  , .recipe_list = rec_objs
+)
+
+wfsets
+```
+
+## (con't)
+
+I tried to give reasonable defaults for all of the functions used in the `healthyverse` set of packages.
+
+Many times hospitals, especially smaller non-academic or even small academic ones do not have a department of analysts. It could be that there are none or just one.
+
+## Modeltime workflow
+
+This workflow is outside of the scope of the `healthyverse` but necessary as it is an intermediate step before we get to the tuning process.
+
+```{r echo=TRUE}
+wf_fits <- wfsets %>%
+  modeltime_fit_workflowset(
+    data = training(splits)
+    , control = control_fit_workflowset(
+     allow_par = FALSE
+     , verbose = FALSE
+    )
+  )
+
+models_tbl <- wf_fits %>%
+  filter(.model != "NULL")
+```
+
+## (con't)
+
+You will see that we did `.model != "NULL"` this is because if a certain model tries to run, lets say an `ets` model where alpha < beta then it will fail and the `.model` output will be equal to `"NULL"`
+
+Lets see the models_tbl
+
+```{r echo=TRUE}
+models_tbl
+````
 
 ## `healthyR.ai`
 
