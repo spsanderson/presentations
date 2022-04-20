@@ -3613,6 +3613,19 @@ models_tbl &lt;- wf_fits %&gt;%
 
 <p>You will see that we did <code>.model != &quot;NULL&quot;</code> this is because if a certain model tries to run, lets say an <code>ets</code> model where alpha &lt; beta then it will fail and the <code>.model</code> output will be equal to <code>&quot;NULL&quot;</code></p>
 
+<p>Lets see the models_tbl</p>
+
+<pre class = 'prettyprint lang-r'>models_tbl</pre>
+
+<pre >## # Modeltime Table
+## # A tibble: 4 x 3
+##   .model_id .model     .model_desc              
+##       &lt;int&gt; &lt;list&gt;     &lt;chr&gt;                    
+## 1         1 &lt;workflow&gt; REC_BASE_MARS            
+## 2         2 &lt;workflow&gt; REC_DATE_MARS            
+## 3         3 &lt;workflow&gt; REC_DATE_FOURIER_MARS    
+## 4         4 &lt;workflow&gt; REC_DATE_FOURIER_NZV_MARS</pre>
+
 </article></slide><slide class=""><hgroup><h2><code>healthyR.ai</code></h2></hgroup><article  id="healthyr.ai">
 
 </article></slide><slide class=""><hgroup><h2><code>healthyR.data</code></h2></hgroup><article  id="healthyr.data">
