@@ -82,22 +82,15 @@ There are currently five packages in the `healthyverse`
 
 The `healthyverse` package is really just a meta package like tidyverse.
 
-## The Begining
+## `healthyR`
 
 First came `healthyR`
 
-The desire of this packge is to be...
+The desire of this package is to be...
 
 It is experimental
 
-[Site: www.spsanderson.com/healthyR](www.spsanderson.com/healthyR)
-
-## `healthyR`
-
-Current Stats
-
-- Has some functionality that can be useful right out of the gate
-- Plotting functions like `los_ra_index_plt()`, `kmeans_scree_plt()`, and `gartner_magic_chart_plt()`
+Site: https://www.spsanderson.com/healthyR/
 
 ## LOS RA Index Plot
 This plot takes place at the end of a work flow. Let's take a look at an example. First we need some data.
@@ -243,7 +236,7 @@ gartner_magic_chart_plt(
 
 What is `healthyR.ts`
 
-[Site: www.spsanderson.com/healthyR.ts](www.spsanderson.com/healthyR.ts)
+Site: https://www.spsanderson.com/healthyR.ts/
 
 The intent is that it be a easy to use verb framework for quick modeling of
 time-series data.
@@ -468,11 +461,11 @@ https://www.spsanderson.com/healthyR.ts/articles/auto-model-tune.html#data
 
 What is `healthyR.ai`?
 
-The desire of this packge is to be...
+The desire of this package is to be...
 
 It is experimental
 
-[Site: www.spsanderson.com/healthyR.ai](www.spsanderson.com/healthyR.ai)
+Site: https://www.spsanderson.com/healthyR.ai/
 
 ## `healthyR.ai` Topics
 
@@ -615,6 +608,168 @@ dens_plt <- hai_density_plot(dist_tbl, distribution, x, y,
                              .interactive = FALSE)
 ```
 
+## Scaling Data
+
+So first we used `hai_scale_zero_one_vec()` which is a vectorized function that returns data on a vector from [0, 1] inclusive.
+
+Did it here to showcase.
+
+## Distribution Comparison Table
+
+[Function Reference](https://www.spsanderson.com/healthyR.ai/reference/hai_distribution_comparison_tbl.html)
+
+The end user can choose from several different distributions to make the comparison to the empirical data provided. 
+
+Might drop this in favor of moving the functionality to TidyDensity
+
+## (con't)
+
+Lets see some output
+
+```{r echo=TRUE}
+dist_comp_tbl
+```
+
+## (con't)
+
+This function as the library is experimental. There are some minor issues to flush out but the gist is that you can provide some vector x and choose from the list of supported distributions and get back certain information on them.
+
+The vector x is passed through the resulting base `r_` distribution function and that creates the dist_data column.
+
+The dist_data column is passed through to the `density()` function to get the density object. Right now the default n of 512 is used. May change this to the actual `n` or give user the option.
+
+## Distribution Data
+
+We used the function `hai_get_density_data_tbl()` which extracts the information we want from the dis_comp_tbl that was created.
+
+```{r echo=TRUE}
+head(dist_tbl, 5)
+```
+
+## (con't)
+
+Simply what the function does is act as a sort of 'getter'. It grabs the density data from the `dist_comp_tbl` and puts it into a `tibble`
+
+[Function Reference](https://www.spsanderson.com/healthyR.ai/reference/hai_get_density_data_tbl.html)
+
+## Density Comparison Plot
+
+```{r echo=TRUE}
+dens_plt
+```
+
+## (con't)
+
+So what we see now is the densities plotted against each other. The work to get to this point was minimal, only three functions.
+
+[Function Reference](https://www.spsanderson.com/healthyR.ai/reference/hai_density_plot.html)
+
 ## `healthyR.data`
 
+The desire of this package is to be...
+
+It is stable
+
+Site: https://www.spsanderson.com/healthyR.data/
+
 ## `TidyDensity`
+
+The desire of this package is to be...
+
+It is stable
+
+Site: https://www.spsanderson.com/TidyDensity/
+
+## Underlying Packages
+
+Heavy use of base R
+`actuar` for other distributions
+
+Simple piped workflow, tries to be consistent with `tidyverse`
+
+## Simple functions
+
+`rnorm()` = `tidy_normal()`
+
+Try to use sensible defaults.
+
+Referred to as `tidy_` distribution functions.
+
+Syntax that is in all `tidy_` distribution functions `.n` and `.num_sims` where `.n` is the number of randomly generated points and `.num_sims` is how many simulations should be run.
+
+# Examples
+
+## What to Generate
+
+Generate five simulations of 100 points for normal and poisson distributions.
+
+```{r echo=TRUE}
+n <- 100
+ns <- 5
+```
+
+## Tidy Normal
+
+```{r echo=TRUE}
+tn <- tidy_normal(.n = n, .num_sims = ns)
+head(tn, 1)
+tn %>% group_by(sim_number) %>% summarise(mean_val = mean(y))
+```
+
+## Tidy Poisson
+
+```{r echo=TRUE}
+tp <- tidy_poisson(.n = n, .num_sims = ns)
+head(tp, 1)
+tp %>% group_by(sim_number) %>% summarise(mean_val = mean(y))
+```
+
+## What do we notice
+
+We see that there is some random variation in the data...so what does it look like?
+
+## Ploting
+
+Hello `tidy_autoplot()` for now...
+
+Let's take a look at both `tn` and `tp`
+
+## Plot Tidy Normal
+
+```{r echo=TRUE}
+tn %>% tidy_autoplot()
+```
+
+## Plot Tidy Poisson
+
+```{r echo=TRUE}
+tp %>% tidy_autoplot()
+```
+
+## What other plots are there?
+
+[Function Reference](https://www.spsanderson.com/TidyDensity/reference/tidy_autoplot.html)
+
+-  "density"
+-  "probability"
+-  "quantile"
+-  "qq"
+
+Plots can also be interactive. Tried to make them as automatic as possible.
+
+## Combined Distributions
+
+Can we combine distributions and visualize them? Yes!
+
+We can do this with `tidy_combine_distributions()`
+
+How does it work? 
+
+## (con't)
+
+```{r echo=TRUE}
+combined_tbl <- tidy_combine_distributions(tidy_normal(), tidy_beta())
+head(combined_tbl, 1)
+combined_tbl %>% group_by(dist_type) %>% 
+    summarise(mean_val = mean(y)) %>% ungroup()
+```
