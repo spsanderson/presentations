@@ -337,7 +337,7 @@ ts_wfs_mars(
 Lets make the workflowset objec.
 
 ```{r echo=TRUE}
-wfsets <- healthyR.ts::ts_wfs_mars(
+wfsets <- ts_wfs_mars(
   .model_type = "earth"
   , .recipe_list = rec_objs
 )
@@ -473,6 +473,128 @@ The desire of this packge is to be...
 It is experimental
 
 [Site: www.spsanderson.com/healthyR.ai](www.spsanderson.com/healthyR.ai)
+
+## `healthyR.ai` Topics
+
+We are going to talk about two functions and one workflow.
+
+Functions:
+
+1. `hai_histogram_facet_plot()`
+2. `pca_your_recipe()`
+
+Workflow:
+
+1. Distribution Comparison of X
+
+## Histogram Facet Plot
+
+Function Call
+
+```{r eval=FALSE, echo=TRUE}
+hai_histogram_facet_plot(
+  .data,
+  .bins = 10,
+  .scale_data = FALSE,
+  .ncol = 5,
+  .fct_reorder = FALSE,
+  .fct_rev = FALSE,
+  .fill = "steelblue",
+  .color = "white",
+  .scale = "free",
+  .interactive = FALSE
+)
+```
+
+## Example Iris Data Not Scaled
+
+```{r echo=TRUE}
+hai_histogram_facet_plot(.data = iris)
+```
+
+## Example Iris Data Scaled
+
+```{r echo=TRUE}
+hai_histogram_facet_plot(.data = iris, .scale_data = TRUE)
+```
+
+## Function Reference
+
+[Histogram Facet Plot](https://www.spsanderson.com/healthyR.ai/reference/hai_histogram_facet_plot.html)
+
+## PCA Your Recipe
+
+What is PCA?
+
+Principal component analysis (PCA) is a transformation of a group of variables that produces a new set of artificial features or components. These components are designed to capture the maximum amount of information (i.e. variance) in the original variables.
+
+The function will automatically center and scale data along with dropping nzv columns before PCA is performed.
+
+## The output
+
+The function `pca_your_data()` returns invisibly a list object with a lot of information.
+
+[Reference pca_your_data()](https://www.spsanderson.com/healthyR.ai/reference/pca_your_recipe.html)
+
+## Lets test it out
+
+```{r initialize_pca_data, echo=TRUE}
+data_tbl <- healthyR_data %>%
+    select(visit_end_date_time) %>%
+    summarise_by_time(
+        .date_var = visit_end_date_time,
+        .by       = "month",
+        value     = n()
+    ) %>%
+    set_names("date_col","value") %>%
+    filter_by_time(
+        .date_var = date_col,
+        .start_date = "2013",
+        .end_date = "2020"
+    )
+
+splits <- initial_split(data = data_tbl, prop = 0.8)
+
+rec_obj <- recipe(value ~ ., training(splits)) %>%
+    step_timeseries_signature(date_col) %>%
+    step_rm(matches("(iso$)|(xts$)|(hour)|(min)|(sec)|(am.pm)"))
+```
+
+## Now lets PCA the Recipe
+
+```{r echo=TRUE}
+output_list <- pca_your_recipe(rec_obj, .data = data_tbl)
+
+names(output_list)
+```
+
+## Lets Look at the Plots
+
+```{r, echo=TRUE}
+output_list[["pca_variance_scree_plt"]]
+```
+
+## PCA Variance Scree Plot
+
+This shows us how much variability is captured by each principal component
+
+## PCA Loadings Plot
+
+```{r, echo=TRUE}
+output_list[["pca_loadings_plt"]]
+```
+
+## PCA Top N Loadings Plot
+
+```{r echo=TRUE}
+output_list$pca_top_n_loadings_plt
+```
+
+## PC Loadings
+
+Remember loadings are coefficients in linear combination predicting a varible by the standardized components, `pca_your_data()` will standardize your numberic components only for now.
+
+[PCA On StatQuest](https://statquest.org/pca-clearly-explained/)
 
 ## `healthyR.data`
 
