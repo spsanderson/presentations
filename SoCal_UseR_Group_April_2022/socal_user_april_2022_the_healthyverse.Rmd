@@ -598,21 +598,21 @@ Remember loadings are coefficients in linear combination predicting a varible by
 
 ## Distribution Comparison
 
-This is a workflow, meaning we pipe certain commands together to get the data.
-
-We will do this step by step.
-
-Here is an example of the full workflow:
+This is a workflow, meaning we pipe certain commands together to get the data. We will do this step by step. Here is an example of the full workflow:
 
 ```{r echo=TRUE}
 df <- hai_scale_zero_one_vec(.x = mtcars$mpg)
 
-dist_comp_tbl <- hai_distribution_comparison_tbl(.x = df,
-                                                 .distributions = c("beta"),
-                                                 .normalize = FALSE)
+dist_comp_tbl <- hai_distribution_comparison_tbl(
+    .x = df,
+    .distributions = c("beta"),
+    .normalize = FALSE
+)
+
 dist_tbl <- hai_get_density_data_tbl(.data = dist_comp_tbl)
 
-hai_density_plot(dist_tbl, distribution, x, y, .interactive = FALSE)
+dens_plt <- hai_density_plot(dist_tbl, distribution, x, y, 
+                             .interactive = FALSE)
 ```
 
 ## `healthyR.data`
