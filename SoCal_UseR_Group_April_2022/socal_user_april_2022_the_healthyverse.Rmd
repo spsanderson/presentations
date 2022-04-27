@@ -841,3 +841,30 @@ tmn %>% with_groups(dist_name, summarise, mean(y))
 tmn %>% tidy_multi_dist_autoplot()
 ```
 
+## Parameter Estimation
+
+Lets pick on the `beta` distribution.
+
+Lets define a vector x
+
+```{r echo=TRUE}
+x <- tidy_beta(.n = n, .shape1 = 0.1, .shape2 = 0.4)$y
+```
+
+## Beta Estimates
+
+Outputs a list object, here we want to see the estimates tibble.
+
+```{r echo=TRUE}
+util_beta_param_estimate(x)$parameter_tbl %>% 
+    select(dist_type, shape1, shape2, method)
+```
+
+## Visualize the Empirical vs Estimated
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+util_beta_param_estimate(x)$combined_data_tbl %>%
+  tidy_combined_autoplot()
+```
+
+# Thank You!!
