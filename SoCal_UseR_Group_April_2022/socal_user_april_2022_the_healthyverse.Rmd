@@ -18,23 +18,19 @@ library(tidymodels)
 library(modeltime)
 ```
 
-## About Me
+# About Me
 
-Name - Steven P Sanderson II, MPH
-
-Education:
+## Education
 
 - BA Economics: SUNY Stony Brook University
 - MPH: SUNY Stony Brook University
 
-Employment:
+## Employment
 
 - Data Scientist/IT Manager: NYU Langone Health at Long Island Community Hospital
 - Head Data Scientist: Manchu Technologies Corp. (Consulting in `SQL`, `R`)
-
-Developer:
-
-- `healthyverse` packages.
+- Developer: `healthyverse` packages.
+- Researcher: FMTangerman LLC https://www.fmtangerman.com/
 
 ## Sites
 
